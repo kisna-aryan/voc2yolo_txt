@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 label = 'test'
 xml_path = f'/home/kisna/FLIR_proj/FLIR_ADAS_v2/datasetv2edit/annotest/{label}/Annotations'
-txt_path = f'/home/kisna/FLIR_proj/FLIR_ADAS_v2/datasetv2edit/v2yolodataset/{label}/labels'
+txt_path = f'/home/kisna/FLIR_proj/FLIR_ADAS_v2/datasetv2edit/v2yolodataset/v2datasetyolo/{label}/labels'
 
 # Function to get the data from XML Annotation
 def extract_info_from_xml(xml_file):
@@ -63,12 +63,11 @@ class_name_to_id_mapping = {"person": 0,
                            "light": 8,
                            "hydrant": 9,
                            "sign": 10,
-                           "dog": 11,
-                           "skateboard": 12,
-                           "stroller": 13,
-                           "scooter": 14,
-                           "deer" : 15,
-                           "other vehicle": 16}
+                           "skateboard": 11,
+                           "stroller": 12,
+                           "scooter": 13,
+                           "deer" : 14,
+                           "other vehicle": 15}
 
 # Convert the info dict to the required yolo format and write it to disk
 def convert_to_yolov5(info_dict):

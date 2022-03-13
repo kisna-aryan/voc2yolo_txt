@@ -7,9 +7,9 @@ from PIL import Image, ImageDraw
 import random
 import matplotlib.pyplot as plt
 
-label = 'val'
-xml_path = f'K:\\DL_git\\YOLO\\dataset\\{label}\\Annotations'
-txt_path = f'K:\\DL_git\\YOLO\\dataset\\{label}\\yolo_anno'
+label = 'test'
+xml_path = f'/home/kisna/FLIR_proj/FLIR_ADAS_v2/datasetv2edit/annotest/{label}/Annotations'
+txt_path = f'/home/kisna/FLIR_proj/FLIR_ADAS_v2/datasetv2edit/v2yolodataset/{label}/labels'
 
 # Function to get the data from XML Annotation
 def extract_info_from_xml(xml_file):
@@ -48,13 +48,27 @@ def extract_info_from_xml(xml_file):
     return info_dict
 
 
-print(extract_info_from_xml('K:/DL_git/FLIRrgb_OD/FLIRrgb_dataset/train/Annotations/FLIR_00001.xml'))
+# print(extract_info_from_xml('K:/DL_git/FLIRrgb_OD/FLIRrgb_dataset/train/Annotations/FLIR_00001.xml'))
+print(extract_info_from_xml('/home/kisna/FLIR_proj/FLIR_ADAS_v2/datasetv2edit/annotest/train/Annotations/video-2Af3dwvs6YPfwSSf6-frame-000000-imW24bapJsHpTahce.xml'))
 
 # Dictionary that maps class names to IDs
 class_name_to_id_mapping = {"person": 0,
-                           "bicycle": 1,
+                           "bike": 1,
                            "car": 2,
-                           "dog": 3}
+                           "dog": 3,
+                           "motor": 4,
+                           "bus": 5,
+                           "train": 6,
+                           "truck": 7,
+                           "light": 8,
+                           "hydrant": 9,
+                           "sign": 10,
+                           "dog": 11,
+                           "skateboard": 12,
+                           "stroller": 13,
+                           "scooter": 14,
+                           "deer" : 15,
+                           "other vehicle": 16}
 
 # Convert the info dict to the required yolo format and write it to disk
 def convert_to_yolov5(info_dict):
@@ -66,6 +80,7 @@ def convert_to_yolov5(info_dict):
             class_id = class_name_to_id_mapping[b["class"]]
         except KeyError:
             print("Invalid Class. Must be one from ", class_name_to_id_mapping.keys())
+            print("Class not in dict:" , b["class"])
         
         # Transform the bbox co-ordinates as per the format required by YOLO v5
         b_center_x = (b["xmin"] + b["xmax"]) / 2 
@@ -85,7 +100,7 @@ def convert_to_yolov5(info_dict):
         
     # Name of the file which we have to save 
     # save_file_name = os.path.join(txt_path, info_dict["filename"].replace("jpg", "txt"))
-    save_file_name = os.path.join(txt_path, info_dict["filename"].replace("jpeg", "txt"))
+    save_file_name = os.path.join(txt_path, info_dict["filename"].replace("jpg", "txt"))
 
     
     # Save the annotation to disk
